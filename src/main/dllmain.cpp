@@ -55,7 +55,7 @@ DWORD WINAPI mainThread(void* hModule) {
     auto cocos2dBase = reinterpret_cast<uintptr_t>(cocos2dModule);
 
     initThreadPool(cocos2dModule);
-    initLoadingOptimizations(base);
+    // initLoadingOptimizations(base);
     initRenderingOptimizations(cocos2dModule);
 
     MH_EnableHook(MH_ALL_HOOKS);
