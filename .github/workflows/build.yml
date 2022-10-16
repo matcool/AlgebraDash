@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:     
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+     
+    - uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x86
+
+    - name: Configure CMake
+      run: |
+        cmake -B build -A win32 -T host=x64
+    
+    - name: Build
+      run: |
+        cmake --build build --config Release
+    
+    - uses: actions/upload-artifact@v3
+      with:
+        name: build
+        path: build/Release/*.dll
